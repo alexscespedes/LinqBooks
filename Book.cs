@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinqBooks
 {
-    public class Books
+    public class Book
     {
         public string Title { get; set; }
         public int PageCount { get; set; }
