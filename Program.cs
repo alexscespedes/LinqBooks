@@ -37,6 +37,28 @@ LinqQueries queries = new LinqQueries();
 // SelectBooks
 //PrintValues(queries.SelectBooks());
 
+// BookCount
+//Console.WriteLine(queries.BookCount());
+
+
+// BookMinMax
+//Console.WriteLine(queries.BookMinMax());
+
+// BookMinMaxBy
+//var book = queries.BookMinMaxBy();
+//Console.WriteLine(book.Title + " - " + book.PublishedDate.ToShortDateString());
+
+// BookSum
+//Console.WriteLine(queries.BookSum());
+
+// BookAggregate
+//Console.WriteLine(queries.BookAggregate());
+
+// BookAverage
+Console.WriteLine(queries.BookAverage());
+
+
+
 void PrintValues(IEnumerable<Book> listOfBooks)
 {
     Console.WriteLine("{0, -60} {1, 15} {2, 15}\n", "Title", "Pages", "Published Date");

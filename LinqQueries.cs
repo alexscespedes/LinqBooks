@@ -84,5 +84,53 @@ namespace LinqBooks
             return bookCollection.Take(3).Select(p=> new Book() {Title = p.Title, PageCount = p.PageCount});
         }
 
+        public int BookCount()
+        {
+            //return bookCollection.Where(p => p.PageCount > 199 && p.PageCount < 501).Count();
+            return bookCollection.Count(p => p.PageCount > 199 && p.PageCount < 501);
+        }
+
+        public long BookLongCount()
+        {
+            return bookCollection.LongCount(p => p.PageCount > 199 && p.PageCount < 501);
+        }
+
+        public int BookMinMax()
+        {
+            //return bookCollection.Min(p => p.PublishedDate);
+            return bookCollection.Max(p => p.PageCount);
+        }
+
+        public Book? BookMinMaxBy()
+        {
+            return bookCollection.MaxBy(p => p.PublishedDate);
+            //return bookCollection.Where(p => p.PageCount > 0).MinBy(p => p.PageCount);
+        }
+
+        public int BookSum()
+        {
+            return bookCollection.Where(p => p.PageCount >= 0 && p.PageCount <= 500).Sum(p=> p.PageCount);
+        }
+
+        public string BookAggregate()
+        {
+            return bookCollection.Where(p => p.PublishedDate.Year > 2015).Aggregate("", (BookTitle, next) =>
+            {
+                if(BookTitle != null)
+                {
+                    BookTitle += " \n " + next.Title;
+                } else
+                {
+                    BookTitle += next.Title;
+                }
+
+                return BookTitle;
+            });
+        }
+
+        public double BookAverage()
+        {
+            return bookCollection.Average(p=> p.Title.Length);
+        }
     }
 }
