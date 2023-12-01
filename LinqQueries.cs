@@ -132,5 +132,25 @@ namespace LinqBooks
         {
             return bookCollection.Average(p=> p.Title.Length);
         }
+
+        public IEnumerable<IGrouping<int, Book>> BooksGroupBy()
+        {
+            return bookCollection.Where(p => p.PublishedDate.Year >= 2000).OrderByDescending(p => p.PublishedDate).GroupBy(p => p.PublishedDate.Year);
+        }
+
+        public ILookup<char, Book> DictBooksLooksUp()
+        {
+            return bookCollection.ToLookup(p => p.Title[0], p => p);
+        }
+
+        public IEnumerable<Book> BooksJoin()
+        {
+            var BooksAfter2005 = bookCollection.Where(p => p.PublishedDate.Year > 2005);
+
+            var BooksWithMoreOf500 = bookCollection.Where(p => p.PageCount > 500);
+
+            return BooksAfter2005.Join(BooksWithMoreOf500, p => p.Title, x => x.Title, (p, x) => p);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LinqBooks;
+using System.Text.RegularExpressions;
 
 LinqQueries queries = new LinqQueries();
 
@@ -55,7 +56,17 @@ LinqQueries queries = new LinqQueries();
 //Console.WriteLine(queries.BookAggregate());
 
 // BookAverage
-Console.WriteLine(queries.BookAverage());
+//Console.WriteLine(queries.BookAverage());
+
+// BooksGroupBy
+//PrintGroup(queries.BooksGroupBy());
+
+//DictBooksLooksUp
+//var dictBook = queries.DictBooksLooksUp();
+//printDictionary(dictBook, 'S');
+
+// BooksJoin
+PrintValues(queries.BooksJoin());
 
 
 
@@ -68,3 +79,35 @@ void PrintValues(IEnumerable<Book> listOfBooks)
         Console.WriteLine("{0, -60} {1, 15} {2, 15}", book.Title, book.PageCount, book.PublishedDate.ToShortDateString());
     }
 }
+
+void PrintGroup(IEnumerable<IGrouping<int, Book>> listOfGroups)
+{
+    foreach (var group in listOfGroups)
+    {
+        Console.WriteLine("");
+        Console.WriteLine($"Group: {group.Key}");
+        Console.WriteLine("{0,-60} {1, 15} {2, 15}\n", "Title", "N. Pages", "Published Date");
+        foreach (var item in group)
+        {
+            Console.WriteLine("{0,-60} {1, 15} {2, 15}", item.Title, item.PageCount, item.PublishedDate.Date.ToShortDateString());
+        }
+    }
+}
+
+void printDictionary(ILookup<char, Book> listBooks, char letter)
+{
+    char letterUpper = Char.ToUpper(letter);
+    if (listBooks[letterUpper].Count() == 0)
+    {
+        Console.WriteLine($"No hay libros que inicien con la letra '{letterUpper}'");
+    }
+    else
+    {
+        Console.WriteLine("{0, -60} {1, 15} {2, 15}\n", "Título", "Nro. Páginas", "Fecha de Publicación");
+        foreach (var book in listBooks[letterUpper])
+        {
+            Console.WriteLine("{0, -60} {1, 15} {2, 15}", book.Title, book.PageCount, book.PublishedDate.ToShortDateString());
+        }
+    }
+}
+
